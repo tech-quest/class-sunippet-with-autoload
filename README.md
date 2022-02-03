@@ -1,4 +1,4 @@
-# 🐳
+# blog
 
 ## 環境構築
 
@@ -10,7 +10,7 @@
 
 ### 3. Docker のインストール
 
-### 4. 「Docker の起動」と「PHP を使う準備」
+### 4. 「Dockerコンテナの起動」
 
 ```
 ./docker-compose-local.sh up
@@ -34,8 +34,34 @@ PHPMyAdmin
 
 [localhost:3306](http://localhost:3306)
 
-## 設定を変更したい
+## SQL文
 
-```
-localhost:8080をhtmlが表示されるようにしたい -> nginx/default.conf 4行目を index index.htmlにする。
-```
+CREATE DATABASE blog;
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+); 
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `blog_id` int(11) NOT NULL,
+  `commenter_name` varchar(255) NOT NULL,
+  `comments` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+); 
