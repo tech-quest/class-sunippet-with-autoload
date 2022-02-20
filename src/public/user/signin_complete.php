@@ -16,8 +16,6 @@ if (empty($mail) || empty($password)) {
     redirect('./signin.php');
 }
 
-// $userDao = new UserDao();
-// $member = $userDao->findByMail($mail);
 $users = findUserByMail($mail);
 
 if (!password_verify($password, $users['password'])) {
